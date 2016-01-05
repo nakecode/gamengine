@@ -1,3 +1,25 @@
+var window = window;
+
+Object.defineProperty
+(
+	window,
+	'ontime',
+	{
+		set: function (f)
+		{
+			window.timer = window.setInterval
+			(
+				function ()
+				{
+					f ({type: 'tick'});
+					g.option.time += g.option.interval;
+				},
+				g.option.interval
+			);
+		}
+	}
+);
+
 var g =
 {
 	set create (prototype)
@@ -16,7 +38,13 @@ var g =
 		window: window
 	},
 	
-	event: {},
+	e: {},
+	
+	event: function (event)
+	{
+		g.e = event;
+		g.run ();
+	},
 	
 	input: function ()
 	{
@@ -25,15 +53,36 @@ var g =
 
 	load: function ()
 	{
-		window.onclick = function (event) { g.event = event; };
-		window.onkeydown = function (event) { g.event = event; };
-		window.onkeypress = function (event) { g.event = event; };
-		window.onkeyup = function (event) { g.event = event; };
-		window.onload = function (event) { g.event = event; };
-		window.onmousedown = function (event) { g.event = event; };
-		window.onmousemove = function (event) { g.event = event; };
-		window.onmouseup = function (event) { g.event = event; };
-		window.onresize = function (event) { g.event = event; };
+		window.onclick = g.event;
+		window.onkeydown = g.event;
+		window.onkeypress = g.event;
+		window.onkeyup = g.event;
+		window.onload = g.event;
+		window.onmousedown = g.event;
+		window.onmousemove = g.event;
+		window.onresize = g.event;
+		window.ontime = g.event;
+	},
+
+	option:
+	{
+		interval: 1000,
+		time: 0	
+	},
+
+	set:
+	{
+		set interval (interval)
+		{
+			window.clearInterval (window.timer);
+			g.option.interval = interval;
+			window.ontime = g.event;
+		}
+	},
+
+	script:
+	{
+
 	},
 
 	set log (message)
@@ -50,9 +99,9 @@ var g =
 	
 	update: function ()
 	{
-		
+		g.log = g.e.type;
 	}
 };
 
-g.load ();
+g.load (g.e = {type: 'preload'});
 g.run ();
