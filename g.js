@@ -22,6 +22,8 @@ Object.defineProperty
 
 var g =
 {
+	b: {},
+
 	canvas: function (id)
 	{
 		var canvas = window.document.createElement ('canvas');
@@ -48,7 +50,26 @@ var g =
 
 	set d (o)
 	{
+		var с = {};
+			c.fill = (c.fill);
+			c.font = (c.font) ? c.font : g.option.font;
+			c.h = o.h;
+			c.i = o.i;
+			с.id = (o.id) ? o.id : g.b.length;
+			c.r = o.r;
+			c.t = o.t;
+			c.w = o.w;
+			с.x = o.x;
+			c.x0 = o.x0;
+			с.y = o.y;
+			c.y0 = o.y0;
 
+			c.type = 'box';
+			c.type = (c.i) ? 'image' : c.type;
+			c.type = (c.x0) ? 'line' : c.type;
+			c.type = (c.r) ? 'ring' : c.type;
+			c.type = (c.t) ? 'text' : c.type;
+		g.b[c.id] = c;
 	},
 
 	draw: function ()
@@ -102,8 +123,14 @@ var g =
 		window.ontime = g.event;
 	},
 
+	set log (message)
+	{
+		g.entity.window.console.log (message);
+	},
+
 	option:
 	{
+		font: '1em Arial',
 		interval: 1000,
 		time: 0
 	},
@@ -121,11 +148,6 @@ var g =
 	script:
 	{
 
-	},
-
-	set log (message)
-	{
-		g.entity.window.console.log (message);
 	},
 
 	run: function ()
