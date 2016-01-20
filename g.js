@@ -55,7 +55,7 @@ var g =
 			c.font = (c.font) ? c.font : g.option.font;
 			c.h = o.h;
 			c.i = o.i;
-			с.id = (o.id) ? o.id : g.b.length;
+			с.id = (o.id) ? o.id : g.b.length + '';
 			c.r = o.r;
 			c.t = o.t;
 			c.w = o.w;
@@ -105,7 +105,12 @@ var g =
 
 	input: function ()
 	{
-
+		switch (g.e.type)
+		{
+			case 'resize':
+				g.canvas.autosize ();
+				break;
+		};
 	},
 
 	load: function ()
